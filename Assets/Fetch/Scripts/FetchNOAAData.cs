@@ -16,9 +16,11 @@ public class FetchNOAAData : MonoBehaviour
 {
     public string m_url = "https://www.ndbc.noaa.gov/data/latest_obs/latest_obs.txt";
     public Text m_textUI;
-    string m_text;
     [SerializeField]
     public List<NOAAStations> m_stations;
+
+    public string m_text { get; private set; }
+
 
 
     public void RunNOAAScript()

@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Fetch/Scenes/FetchTextData.unity
+    path: Assets/Fetch/Scenes/FetchText.unity
     guid: 077c41b9b7a344b0f84b05fe51057c1e
   m_configObjects: {}
