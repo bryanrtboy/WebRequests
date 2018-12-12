@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class MapPoints : FetchNOAAData
 {
+    [Tooltip("Drag a Quad or similar game object with a meshrenderer to scale the mapped coordinates to fit it's bounds.")]
     public MeshRenderer m_map;
+    [Tooltip("Game object to create for each point in the dataset")]
     public Transform m_point;
 
     bool m_hasGotText = false;
@@ -26,7 +28,7 @@ public class MapPoints : FetchNOAAData
 
         }
 
-        if (!m_hasGotData && m_stations.Count > 1)
+        if (!m_hasGotData && m_stations != null && m_stations.Count > 1)
         {
             m_hasGotData = true;
 

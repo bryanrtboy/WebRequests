@@ -14,10 +14,13 @@ using UnityEngine.Networking;
 
 public class FetchNOAAData : MonoBehaviour
 {
+    [Tooltip("The url address of your data")]
     public string m_url = "https://www.ndbc.noaa.gov/data/latest_obs/latest_obs.txt";
+    [Tooltip("Drag a Text UI object here to display results in the scene, leave null if you don't want to show on screen")]
     public Text m_textUI;
-    [SerializeField]
-    public List<NOAAStations> m_stations;
+
+    //Not exposed in the editor
+    public List<NOAAStations> m_stations { get; private set; }
 
     public string m_text { get; private set; }
 
@@ -49,7 +52,7 @@ public class FetchNOAAData : MonoBehaviour
             Debug.Log("Got the text!");
 
             if (m_textUI != null)
-                m_textUI.text = "Got everything, click Read text to display";
+                m_textUI.text = "Got everything, click 'Read text' to display results";
         }
 
 
@@ -96,7 +99,7 @@ public class FetchNOAAData : MonoBehaviour
             m_stations.Add(n);
         }
 
-        Debug.Log("Parsed the data, select the Game Controller object to view the results in the Inspector");
+        Debug.Log("Parsed the data: " + m_stations.Count.ToString() + " stations were found in the data.");
 
         if (m_textUI != null)
         {
