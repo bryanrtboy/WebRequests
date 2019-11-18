@@ -18,9 +18,18 @@ public class FetchNOAAData : MonoBehaviour
     public string m_url = "https://www.ndbc.noaa.gov/data/latest_obs/latest_obs.txt";
     [Tooltip("Drag a Text UI object here to display results in the scene, leave null if you don't want to show on screen")]
     public Text m_textUI;
+    public GameObject m_fetchButton;
+    public GameObject m_grabStationButton;
+
+    void Start()
+    {
+        if (m_grabStationButton != null)
+            m_grabStationButton.SetActive(false);
+
+    }
 
     //Not exposed in the editor
-    public List<NOAAStations> m_stations { get; private set; }
+    public List<NOAAStationData> m_stations { get; private set; }
 
     public string m_text { get; private set; }
 
@@ -53,6 +62,11 @@ public class FetchNOAAData : MonoBehaviour
 
             if (m_textUI != null)
                 m_textUI.text = "Got everything, click 'Read text' to display results";
+
+            if (m_grabStationButton != null)
+                m_grabStationButton.SetActive(true);
+            if (m_fetchButton != null)
+                m_fetchButton.SetActive(false);
         }
 
 
@@ -68,7 +82,7 @@ public class FetchNOAAData : MonoBehaviour
 
         string[] lines = m_text.Split('\n');
 
-        m_stations = new List<NOAAStations>();
+        m_stations = new List<NOAAStationData>();
 
         //The text file does not seem to use tabs, so use any of these to separate the fields...
         string[] separators = { " ", "  ", "   ", "     " };
@@ -76,7 +90,7 @@ public class FetchNOAAData : MonoBehaviour
         //Skip the first two lines because they are headers
         for (int i = 2; i < lines.Length; i++)
         {
-            NOAAStations n = new NOAAStations();
+            NOAAStationData n = new NOAAStationData();
             List<string> data = lines[i].Split(separators, System.StringSplitOptions.RemoveEmptyEntries).ToList();
             if (data.Count < 1)
                 continue;
@@ -106,8 +120,12 @@ public class FetchNOAAData : MonoBehaviour
             string s = "Nothing found";
 
             if (m_stations.Count > 0)
-                s = "Station: " + m_stations[0].station + "\nAir Temp: " + ((m_stations[0].airTemperature * 9 / 5) + 32) + "° F\nWater temp: " + ((m_stations[0].waterTemperature * 9 / 5) + 32) + "° F\nLast updated: " + m_stations[0].year + "." +
-                m_stations[0].month + "." + m_stations[0].day + " " + m_stations[0].hh + ":" + m_stations[0].mm.ToString("00") + " GMT";
+            {
+                int rand = Random.Range(0, m_stations.Count);
+                NOAAStationData _station = m_stations[rand];
+                s = "Station: " + _station.station + "\nAir Temp: " + ((_station.airTemperature * 9 / 5) + 32) + "° F\nWater temp: " + ((_station.waterTemperature * 9 / 5) + 32) + "° F\nLast updated: " + _station.year + "." +
+                _station.month + "." + _station.day + " " + _station.hh + ":" + _station.mm.ToString("00") + " GMT\nLongitude: " + _station.longitude + "\nLatitude: " + _station.longitude;
+            }
 
             m_textUI.text = "Found " + m_stations.Count + " bouy stations. \n\n" + s;
         }
@@ -118,7 +136,7 @@ public class FetchNOAAData : MonoBehaviour
 }
 
 [System.Serializable]
-public class NOAAStations
+public class NOAAStationData
 {
     public string station;
     public float latitude;

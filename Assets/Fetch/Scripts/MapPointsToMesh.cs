@@ -43,7 +43,7 @@ public class MapPointsToMesh : FetchNOAAData
         //Create the vertices
         List<Vector2> mapVectors = new List<Vector2>();
 
-        foreach (NOAAStations ns in m_stations)
+        foreach (NOAAStationData ns in m_stations)
         {
             float x = (m_map.bounds.size.x * ns.longitude) / 360f;
             float y = (m_map.bounds.size.y * ns.latitude) / 180f;

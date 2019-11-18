@@ -42,15 +42,20 @@ public class MapPoints : FetchNOAAData
 
     void CreatePoints()
     {
-        foreach (NOAAStations ns in m_stations)
+        foreach (NOAAStationData ns in m_stations)
         {
             float x = (m_map.bounds.size.x * ns.longitude) / 360f;
             float y = (m_map.bounds.size.y * ns.latitude) / 180f;
 
             if (m_point != null)
-                Instantiate(m_point, new Vector3(x + m_map.transform.position.x, y + m_map.transform.position.y, m_map.transform.position.z), Quaternion.identity, this.transform);
+            {
+                Transform t = Instantiate(m_point, new Vector3(x + m_map.transform.position.x, y + m_map.transform.position.y, m_map.transform.position.z), Quaternion.identity, this.transform);
+                t.GetComponent<Station>().m_stationData = ns;
+            }
             else
+            {
                 Debug.LogError("Coordinates were created, but no point object to instantiate!");
+            }
         }
     }
 }
