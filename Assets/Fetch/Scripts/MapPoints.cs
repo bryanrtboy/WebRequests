@@ -8,6 +8,7 @@ public class MapPoints : FetchNOAAData
     public MeshRenderer m_map;
     [Tooltip("Game object to create for each point in the dataset")]
     public Transform m_point;
+    public bool m_trimZeroHeightWave = false;
 
     bool m_hasGotText = false;
     bool m_hasGotData = false;
@@ -44,6 +45,10 @@ public class MapPoints : FetchNOAAData
     {
         foreach (NOAAStationData ns in m_stations)
         {
+            //Don't make a point if we don't want bouys with no wave data
+            if (m_trimZeroHeightWave && ns.waveHeight == 0)
+                continue;
+
             float x = (m_map.bounds.size.x * ns.longitude) / 360f;
             float y = (m_map.bounds.size.y * ns.latitude) / 180f;
 
