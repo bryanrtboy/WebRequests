@@ -109,7 +109,7 @@ MonoBehaviour:
     pressure: 0
     airTemperature: 0
     waterTemperature: 0
-  m_stationColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_stationColor: {r: 0.41901034, g: 0.8301887, b: 0.7129841, a: 1}
   m_overColor: {r: 1, g: 0, b: 0, a: 1}
   m_clickedColor: {r: 0.0701762, g: 0.5280829, b: 0.7830189, a: 1}
 --- !u!135 &8634222817397472178

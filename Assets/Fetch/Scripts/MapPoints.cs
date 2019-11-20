@@ -10,8 +10,10 @@ public class MapPoints : FetchNOAAData
     public Transform m_point;
     public bool m_trimZeroHeightWave = false;
 
+
     bool m_hasGotText = false;
-    bool m_hasGotData = false;
+    [HideInInspector]
+    public bool m_hasGotData = false;
     // Start is called before the first frame update
     void Start()
     {

@@ -32,20 +32,25 @@ public class Station : MonoBehaviour
         else if (s > .3f)
             s = .3f;
 
-        this.transform.localScale = Vector3.one * s;
+        //this.transform.localScale = Vector3.one * s;
+        m_startPosition = this.transform.position;
 
         m_date = DateTime.Parse(m_stationData.year + "-" + m_stationData.month + "-" + m_stationData.day + " " +
         m_stationData.hh + ":" + m_stationData.mm);
+        this.transform.localEulerAngles = new Vector3(0, 0, m_stationData.windDirection);
     }
 
-    // void Update()
-    // {
-    //     if (m_stationData != null)
-    //     {
-    //         //this.transform.localScale = new Vector3(m_startPosition.x, m_startPosition.y + Mathf.Sin(Time.time) * (m_stationData.waveHeight * .01f), m_startPosition.z);
-    //         rend.material.color = new Color(rend.material.color.r, rend.material.color.g, rend.material.color.b, Mathf.PingPong(Time.time, m_stationData.waveHeight));
-    //     }
-    // }
+    void Update()
+    {
+        if (m_stationData != null)
+        {
+            //this.transform.position = new Vector3(m_startPosition.x, m_startPosition.y + Mathf.Sin(Time.time) * (m_stationData.waveHeight * .01f), m_startPosition.z);
+            //rend.material.color = new Color(rend.material.color.r, rend.material.color.g, rend.material.color.b, Mathf.PingPong(Time.time, m_stationData.waveHeight));
+            if (m_stationData.windDirection > 0)
+                this.transform.Translate(0, Mathf.Sin(Time.time) * (m_stationData.waveHeight * .0001f), 0);
+
+        }
+    }
 
     // The mesh goes red when the mouse is over it...
     void OnMouseEnter()
@@ -85,8 +90,8 @@ public class Station : MonoBehaviour
 
     void MakeStringData()
     {
-        m_dataAsString = m_date.ToLocalTime().ToString();
-        m_dataAsString += "\nStation: " + m_stationData.station;
+        m_dataAsString += "Station: " + m_stationData.station;
+        m_dataAsString += "\n" + m_date.ToLocalTime().ToString();
         m_dataAsString += "\n\nWind Speed: " + m_stationData.windSpeed;
         m_dataAsString += "\nWind Gust: " + m_stationData.windGust;
         m_dataAsString += "\nWind Direction: " + m_stationData.windDirection;
