@@ -9,13 +9,28 @@ using System.Text.RegularExpressions;
 [RequireComponent(typeof(MeshRenderer))]
 public class FetchImage : MonoBehaviour
 {
-    public string m_url = "https://www.ndbc.noaa.gov/buoycam.php?station=46059";
+    //Bouy cams can be found on the NOAA bouycam map - https://www.ndbc.noaa.gov/buoycams.shtml
+    public string m_baseUrl = "https://www.ndbc.noaa.gov/buoycam.php?station=";
+    string m_fetchUrl;
+    string m_stationId = "46059";
+    List<string> m_bouyCamIDs;
 
     MeshRenderer m_renderer;
 
     void Awake()
     {
         m_renderer = this.GetComponent<MeshRenderer>();
+
+        //Initialize the list so it exists
+        m_bouyCamIDs = new List<string>();
+
+        //Populate the list with id numbers that work
+        m_bouyCamIDs.Add(m_stationId);
+        m_bouyCamIDs.Add("51002");
+
+        //Run a function to grab a URL
+        FetchANewID();
+
     }
 
     void Start()
@@ -26,7 +41,7 @@ public class FetchImage : MonoBehaviour
 
     IEnumerator GetTexture()
     {
-        UnityWebRequest www = UnityWebRequestTexture.GetTexture(m_url);
+        UnityWebRequest www = UnityWebRequestTexture.GetTexture(m_fetchUrl);
         yield return www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError)
@@ -40,6 +55,15 @@ public class FetchImage : MonoBehaviour
             this.transform.localScale = new Vector3(myTexture.width / myTexture.height, 1, 1);
 
         }
+    }
+
+    //This function runs at the start up of the level, and it can be hooked up to a Button.
+    public void FetchANewID()
+    {
+        //Right now, it will always select only the first ID string in the list... 
+        //Need to make it pick a random id
+        m_fetchUrl = m_baseUrl + m_bouyCamIDs[0];
+
     }
 
 }
