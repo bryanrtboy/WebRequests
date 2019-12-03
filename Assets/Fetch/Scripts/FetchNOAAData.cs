@@ -160,6 +160,8 @@ public class NOAAStationData
     public float pressure;
     public float airTemperature;
     public float waterTemperature;
+    public bool airIsEstimated = false;
+    public bool waterIsEstimated = false;
 }
 
 
