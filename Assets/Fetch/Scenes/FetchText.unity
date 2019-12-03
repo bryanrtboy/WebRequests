@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.44657892, g: 0.4964127, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.574817, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -790,6 +790,7 @@ MonoBehaviour:
   m_textUI: {fileID: 200296352}
   m_fetchButton: {fileID: 1983576997}
   m_grabStationButton: {fileID: 42683509}
+  m_backupText: {fileID: 4900000, guid: ab0e6146839ee49bf86bbd535f4da46c, type: 3}
 --- !u!4 &1409583194
 Transform:
   m_ObjectHideFlags: 0

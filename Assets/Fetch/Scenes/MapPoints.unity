@@ -808,6 +808,7 @@ MonoBehaviour:
   m_textUI: {fileID: 1942415452}
   m_fetchButton: {fileID: 0}
   m_grabStationButton: {fileID: 0}
+  m_backupText: {fileID: 4900000, guid: ab0e6146839ee49bf86bbd535f4da46c, type: 3}
   m_map: {fileID: 38846078}
   m_point: {fileID: 460419885378378751, guid: d33dfdc9248d5418295019ef60c309b9, type: 3}
   m_trimZeroHeightWave: 1

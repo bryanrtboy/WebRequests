@@ -20,6 +20,7 @@ public class FetchNOAAData : MonoBehaviour
     public Text m_textUI;
     public GameObject m_fetchButton;
     public GameObject m_grabStationButton;
+    public TextAsset m_backupText;
 
     void Start()
     {
@@ -42,6 +43,10 @@ public class FetchNOAAData : MonoBehaviour
 
     IEnumerator GetTheData()
     {
+#if UNITY_WEBGL
+m_text = m_backupText.text;
+yield return new WaitForSeconds(1);
+#else
         using (UnityWebRequest www = UnityWebRequest.Get(m_url))
         {
             yield return www.SendWebRequest();
@@ -56,12 +61,14 @@ public class FetchNOAAData : MonoBehaviour
             }
         }
 
+#endif
+
         if (m_text != null)
         {
             Debug.Log("Got the text!");
 
             if (m_textUI != null)
-                m_textUI.text = "Got everything, click 'Read text' to display results";
+                m_textUI.text = "Got everything, click the button or mouse over a station to display results";
 
             if (m_grabStationButton != null)
                 m_grabStationButton.SetActive(true);
