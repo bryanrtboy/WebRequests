@@ -11,6 +11,7 @@ public class FetchImage : MonoBehaviour
 {
     //Bouy cams can be found on the NOAA bouycam map - https://www.ndbc.noaa.gov/buoycams.shtml
     public string m_baseUrl = "https://www.ndbc.noaa.gov/buoycam.php?station=";
+    public bool m_saveToDisk = false;
     string m_fetchUrl;
     string m_stationId = "46059";
     List<string> m_bouyCamIDs;
@@ -53,6 +54,10 @@ public class FetchImage : MonoBehaviour
             Texture myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
             m_renderer.material.mainTexture = myTexture;
             this.transform.localScale = new Vector3(myTexture.width / myTexture.height, 1, 1);
+            byte[] bytes = ((DownloadHandlerTexture)www.downloadHandler).data;
+
+            if (m_saveToDisk)
+                System.IO.File.WriteAllBytes(Application.dataPath + "/Fetch/Textures/BouyImage.jpg", bytes);
 
         }
     }

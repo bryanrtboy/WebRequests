@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_baseUrl: https://www.ndbc.noaa.gov/buoycam.php?station=
+  m_saveToDisk: 1
 --- !u!23 &171699684
 MeshRenderer:
   m_ObjectHideFlags: 0
