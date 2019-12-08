@@ -6,7 +6,7 @@ using System;
 public class Station : MonoBehaviour
 {
 
-    public NOAAStationData m_stationData;
+    public NOAA_latest_observations m_stationData;
     public Color m_stationColor = Color.grey;
     public Color m_overColor = Color.red;
     public Color m_clickedColor = Color.blue;
@@ -40,18 +40,6 @@ public class Station : MonoBehaviour
         this.transform.localEulerAngles = new Vector3(0, 0, m_stationData.windDirection);
     }
 
-    void Update()
-    {
-        if (m_stationData != null)
-        {
-            //this.transform.position = new Vector3(m_startPosition.x, m_startPosition.y + Mathf.Sin(Time.time) * (m_stationData.waveHeight * .01f), m_startPosition.z);
-            //rend.material.color = new Color(rend.material.color.r, rend.material.color.g, rend.material.color.b, Mathf.PingPong(Time.time, m_stationData.waveHeight));
-            if (m_stationData.windDirection > 0)
-                this.transform.Translate(0, Mathf.Sin(Time.time) * (m_stationData.waveHeight * .0001f), 0);
-
-        }
-    }
-
     // The mesh goes red when the mouse is over it...
     void OnMouseEnter()
     {
@@ -67,7 +55,6 @@ public class Station : MonoBehaviour
     void OnMouseOver()
     {
         rend.material.color -= new Color(0.01F, 0, 0, 0) * Time.deltaTime;
-        //Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, this.transform.position, Time.deltaTime);
     }
 
     // ...and the mesh finally turns white when the mouse moves away.
@@ -77,8 +64,7 @@ public class Station : MonoBehaviour
             rend.material.color = m_clickedColor;
         else
             rend.material.color = m_stationColor;
-        // if (m_cameraMoveScript != null)
-        //     m_cameraMoveScript.m_isReturning = true;
+
     }
 
     void OnMouseDown()
@@ -90,12 +76,22 @@ public class Station : MonoBehaviour
 
     void MakeStringData()
     {
-        m_dataAsString += "Station: " + m_stationData.station;
+        m_dataAsString += "Station: " + m_stationData.id;
         m_dataAsString += "\n" + m_date.ToLocalTime().ToString();
         m_dataAsString += "\n\nWind Speed: " + m_stationData.windSpeed;
         m_dataAsString += "\nWind Gust: " + m_stationData.windGust;
         m_dataAsString += "\nWind Direction: " + m_stationData.windDirection;
         m_dataAsString += "\nWave Height: " + m_stationData.waveHeight;
+
+        if (m_stationData.details != null)
+        {
+            m_dataAsString += "\n\nName: " + m_stationData.details.name;
+            m_dataAsString += "\nLocation: " + m_stationData.details.location;
+            m_dataAsString += "\nNote: " + m_stationData.details.note;
+            m_dataAsString += "\nPayload: " + m_stationData.details.payload;
+
+        }
+
         m_hasData = true;
 
     }

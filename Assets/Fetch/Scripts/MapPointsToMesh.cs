@@ -12,19 +12,12 @@ public class MapPointsToMesh : FetchNOAAData
     // Start is called before the first frame update
     void Start()
     {
-        RunNOAAScript();
+        FetchRawData(m_latestObservationURL);
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (!m_hasGotText && m_text != null)
-        {
-            m_hasGotText = true;
-            ReadTextFile();
-
-        }
 
         if (!m_hasGotData && m_stations != null && m_stations.Count > 1)
         {
@@ -43,7 +36,7 @@ public class MapPointsToMesh : FetchNOAAData
         //Create the vertices
         List<Vector2> mapVectors = new List<Vector2>();
 
-        foreach (NOAAStationData ns in m_stations)
+        foreach (NOAA_latest_observations ns in m_stations)
         {
             float x = (m_map.bounds.size.x * ns.longitude) / 360f;
             float y = (m_map.bounds.size.y * ns.latitude) / 180f;

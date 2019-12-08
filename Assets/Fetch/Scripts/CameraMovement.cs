@@ -5,10 +5,10 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     public bool m_isReturning = false;
-
-    Vector3 m_startPosition;
     public bool m_zoomingToPoint = false;
+
     Vector3 m_targetPoint;
+    Vector3 m_startPosition;
 
     void Start()
     {
@@ -30,6 +30,12 @@ public class CameraMovement : MonoBehaviour
             this.transform.position = Vector3.Lerp(this.transform.position, m_targetPoint, Time.deltaTime);
             if (Vector3.Distance(this.transform.position, m_targetPoint) < .01f)
                 m_zoomingToPoint = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            m_isReturning = true;
+            m_zoomingToPoint = false;
         }
 
     }

@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6026850498104465538}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
-  m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_stationData:
-    station: 
+    id: 
     latitude: 0
     longitude: 0
     year: 0
@@ -109,6 +109,19 @@ MonoBehaviour:
     pressure: 0
     airTemperature: 0
     waterTemperature: 0
+    airIsEstimated: 0
+    waterIsEstimated: 0
+    details:
+      id: 
+      owner: 
+      type: 
+      hull: 
+      name: 
+      payload: 
+      location: 
+      timezone: 
+      forecast: 
+      note: 
   m_stationColor: {r: 0.41901034, g: 0.8301887, b: 0.7129841, a: 1}
   m_overColor: {r: 1, g: 0, b: 0, a: 1}
   m_clickedColor: {r: 0.0701762, g: 0.5280829, b: 0.7830189, a: 1}

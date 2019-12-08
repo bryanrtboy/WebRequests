@@ -294,7 +294,7 @@ GameObject:
   - component: {fileID: 1781986205}
   - component: {fileID: 1781986204}
   m_Layer: 0
-  m_Name: GameController
+  m_Name: FetchNOAAData
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -312,11 +312,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b83bf03f2dbb4c34b6210c85e331f6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_url: https://www.ndbc.noaa.gov/data/latest_obs/latest_obs.txt
+  m_latestObservationURL: https://www.ndbc.noaa.gov/data/latest_obs/latest_obs.txt
+  m_stationDetailsURL: https://www.ndbc.noaa.gov/data/stations/station_table.txt
+  m_backupLatestObs: {fileID: 4900000, guid: ab0e6146839ee49bf86bbd535f4da46c, type: 3}
+  m_backupStationData: {fileID: 4900000, guid: 71ef34044371f4934b975ed20d8a412d, type: 3}
+  m_getDetails: 0
   m_textUI: {fileID: 0}
-  m_fetchButton: {fileID: 0}
-  m_grabStationButton: {fileID: 0}
-  m_backupText: {fileID: 4900000, guid: ab0e6146839ee49bf86bbd535f4da46c, type: 3}
+  m_dataFetchingComplete: 0
   m_map: {fileID: 38846078}
 --- !u!4 &1781986205
 Transform:

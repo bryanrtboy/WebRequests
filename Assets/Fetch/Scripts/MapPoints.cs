@@ -12,28 +12,20 @@ public class MapPoints : FetchNOAAData
     public bool m_sphericalMapping = false;
     public float m_sphereRadius = 1;
 
-
-    bool m_hasGotText = false;
     [HideInInspector]
     public bool m_hasGotData = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        RunNOAAScript();
+        FetchRawData(m_latestObservationURL);
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (!m_hasGotText && m_text != null)
-        {
-            m_hasGotText = true;
-            ReadTextFile();
-
-        }
-
-        if (!m_hasGotData && m_stations != null && m_stations.Count > 1)
+        if (m_dataFetchingComplete && !m_hasGotData && m_stations != null && m_stations.Count > 1)
         {
             m_hasGotData = true;
 
@@ -41,13 +33,14 @@ public class MapPoints : FetchNOAAData
                 CreatePoints();
             else
                 Debug.LogError("No map to place points on!");
+
         }
 
     }
 
     void CreatePoints()
     {
-        foreach (NOAAStationData ns in m_stations)
+        foreach (NOAA_latest_observations ns in m_stations)
         {
             //Don't make a point if we don't want bouys with no wave data
             if (m_trimZeroHeightWave && ns.waveHeight == 0)
