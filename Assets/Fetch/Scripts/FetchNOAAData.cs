@@ -282,7 +282,7 @@ public static class StationData
     {
         string m_dataAsString = "";
         m_dataAsString += "Station: " + m_stationData.id;
-        m_dataAsString += "\n" + m_date.ToLocalTime().ToString();
+        m_dataAsString += "\n" + m_date.ToLocalTime().ToString() + " your local time";
         m_dataAsString += "\n\nWind Speed: " + m_stationData.windSpeed;
         m_dataAsString += "\nWind Gust: " + m_stationData.windGust;
         m_dataAsString += "\nWind Direction: " + m_stationData.windDirection;

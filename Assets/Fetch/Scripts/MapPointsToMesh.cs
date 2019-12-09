@@ -7,7 +7,6 @@ public class MapPointsToMesh : FetchNOAAData
     [Tooltip("Drag a Quad or similar game object with a meshrenderer to scale the mapped coordinates to fit it's bounds.")]
     public MeshRenderer m_map;
 
-    bool m_hasGotText = false;
     bool m_hasGotData = false;
     // Start is called before the first frame update
     void Start()
