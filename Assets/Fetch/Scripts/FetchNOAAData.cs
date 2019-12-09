@@ -140,13 +140,13 @@ yield return new WaitForSeconds(1);
             float.TryParse(data[17], out n.airTemperature);
             float.TryParse(data[18], out n.waterTemperature);
 
-            if (Mathf.Approximately(n.airTemperature, 0f) && Mathf.Abs(n.waterTemperature) > .1f)
+            if (Mathf.Approximately(n.airTemperature, 0f) && Mathf.Abs(n.airTemperature - n.waterTemperature) > .1f)
             {
                 n.airTemperature = n.waterTemperature + 2f;
                 n.airIsEstimated = true;
             }
 
-            if (Mathf.Approximately(n.waterTemperature, 0f) && Mathf.Abs(n.airTemperature) > .1f)
+            if (Mathf.Approximately(n.waterTemperature, 0f) && Mathf.Abs(n.waterTemperature - n.airTemperature) > .1f)
             {
                 n.waterTemperature = n.airTemperature - 2f;
                 n.waterIsEstimated = true;
@@ -289,7 +289,7 @@ public static class StationData
         m_dataAsString += "\nWave Height: " + m_stationData.waveHeight;
         m_dataAsString += "\nAir Temperature: " + m_stationData.airTemperature;
         if (m_stationData.airIsEstimated) m_dataAsString += "*";
-        m_dataAsString += "\nAir Temperature: " + m_stationData.waterTemperature;
+        m_dataAsString += "\nWater Temperature: " + m_stationData.waterTemperature;
         if (m_stationData.waterIsEstimated) m_dataAsString += "*";
         if (m_stationData.airIsEstimated || m_stationData.waterIsEstimated) m_dataAsString += "\n\n*Estimated temperature.";
 
