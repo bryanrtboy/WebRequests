@@ -49,26 +49,11 @@ public class FetchNOAAData : MonoBehaviour
 
         if (m_textUI != null)
         {
-
             NOAA_latest_observations m_stationData = m_stations[UnityEngine.Random.Range(0, m_stations.Count)];
             DateTime m_date = DateTime.Parse(m_stationData.year + "-" + m_stationData.month + "-" + m_stationData.day + " " +
 m_stationData.hh + ":" + m_stationData.mm);
-            string m_dataAsString = "";
-            m_dataAsString += "Station: " + m_stationData.id;
-            m_dataAsString += "\n" + m_date.ToLocalTime().ToString();
-            m_dataAsString += "\n\nWind Speed: " + m_stationData.windSpeed;
-            m_dataAsString += "\nWind Gust: " + m_stationData.windGust;
-            m_dataAsString += "\nWind Direction: " + m_stationData.windDirection;
-            m_dataAsString += "\nWave Height: " + m_stationData.waveHeight;
 
-            if (m_stationData.details != null)
-            {
-                m_dataAsString += "\n\nName: " + m_stationData.details.name;
-                m_dataAsString += "\nLocation: " + m_stationData.details.location;
-                m_dataAsString += "\nNote: " + m_stationData.details.note;
-                m_dataAsString += "\nPayload: " + m_stationData.details.payload;
-            }
-            m_textUI.text = m_dataAsString;
+            m_textUI.text = StationData.Statistics(m_stationData, m_date);
         }
     }
 
@@ -154,6 +139,19 @@ yield return new WaitForSeconds(1);
             float.TryParse(data[15], out n.pressure);
             float.TryParse(data[17], out n.airTemperature);
             float.TryParse(data[18], out n.waterTemperature);
+
+            if (Mathf.Approximately(n.airTemperature, 0f) && Mathf.Abs(n.waterTemperature) > .1f)
+            {
+                n.airTemperature = n.waterTemperature + 2f;
+                n.airIsEstimated = true;
+            }
+
+            if (Mathf.Approximately(n.waterTemperature, 0f) && Mathf.Abs(n.airTemperature) > .1f)
+            {
+                n.waterTemperature = n.airTemperature - 2f;
+                n.waterIsEstimated = true;
+            }
+
 
             m_stations.Add(n);
         }
@@ -276,6 +274,36 @@ public class NOAA_station_table
     public string timezone;
     public string forecast;
     public string note;
+}
+
+public static class StationData
+{
+    public static string Statistics(NOAA_latest_observations m_stationData, DateTime m_date)
+    {
+        string m_dataAsString = "";
+        m_dataAsString += "Station: " + m_stationData.id;
+        m_dataAsString += "\n" + m_date.ToLocalTime().ToString();
+        m_dataAsString += "\n\nWind Speed: " + m_stationData.windSpeed;
+        m_dataAsString += "\nWind Gust: " + m_stationData.windGust;
+        m_dataAsString += "\nWind Direction: " + m_stationData.windDirection;
+        m_dataAsString += "\nWave Height: " + m_stationData.waveHeight;
+        m_dataAsString += "\nAir Temperature: " + m_stationData.airTemperature;
+        if (m_stationData.airIsEstimated) m_dataAsString += "*";
+        m_dataAsString += "\nAir Temperature: " + m_stationData.waterTemperature;
+        if (m_stationData.waterIsEstimated) m_dataAsString += "*";
+        if (m_stationData.airIsEstimated || m_stationData.waterIsEstimated) m_dataAsString += "\n\n*Estimated temperature.";
+
+        if (m_stationData.details != null)
+        {
+            m_dataAsString += "\n\nName: " + m_stationData.details.name;
+            m_dataAsString += "\nLocation: " + m_stationData.details.location;
+            m_dataAsString += "\nNote: " + m_stationData.details.note;
+            m_dataAsString += "\nPayload: " + m_stationData.details.payload;
+
+        }
+        return m_dataAsString;
+    }
+
 }
 
 

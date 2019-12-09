@@ -68,29 +68,14 @@ public class MapPoints : FetchNOAAData
 
     Vector3 RectangularCoordinates(float longi, float lati, MeshRenderer meshRend)
     {
-
         float x = (meshRend.bounds.size.x * longi) / 360f;
         float y = (meshRend.bounds.size.y * lati) / 180f;
 
         return new Vector3(x + meshRend.transform.position.x, y + meshRend.transform.position.y, meshRend.transform.position.z);
-
     }
 
-    // Get the spherical Coordinate
     Vector3 SphericalCoordinate(float longi, float lati, float radius)
     {
-
-        // Method 1: Transfer to Radians from Degrees
-        // float theta = longi * Mathf.Deg2Rad;
-        // float phi = lati * Mathf.Deg2Rad;
-
-        // float Xpos = radius * Mathf.Cos(theta) * Mathf.Sin(phi);
-        // float Ypos = radius * Mathf.Sin(theta) * Mathf.Sin(phi);
-        // float Zpos = radius * Mathf.Cos(phi);
-
-        // // Set the X,Y,Z pos from the long and lat
-        // return new Vector3(Xpos, Zpos, Ypos);
-
         return Quaternion.AngleAxis(longi, -Vector3.up) * Quaternion.AngleAxis(lati, -Vector3.right) * new Vector3(0, 0, radius);
 
     }

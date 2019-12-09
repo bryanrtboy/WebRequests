@@ -44,7 +44,11 @@ public class Station : MonoBehaviour
     void OnMouseEnter()
     {
         if (!m_hasData)
-            MakeStringData();
+        {
+            m_dataAsString = StationData.Statistics(m_stationData, m_date);
+            m_hasData = true;
+        }
+
 
         rend.material.color = Color.red;
         if (m_ui != null)
@@ -64,7 +68,6 @@ public class Station : MonoBehaviour
             rend.material.color = m_clickedColor;
         else
             rend.material.color = m_stationColor;
-
     }
 
     void OnMouseDown()
@@ -74,25 +77,4 @@ public class Station : MonoBehaviour
         m_hasBeenClicked = true;
     }
 
-    void MakeStringData()
-    {
-        m_dataAsString += "Station: " + m_stationData.id;
-        m_dataAsString += "\n" + m_date.ToLocalTime().ToString();
-        m_dataAsString += "\n\nWind Speed: " + m_stationData.windSpeed;
-        m_dataAsString += "\nWind Gust: " + m_stationData.windGust;
-        m_dataAsString += "\nWind Direction: " + m_stationData.windDirection;
-        m_dataAsString += "\nWave Height: " + m_stationData.waveHeight;
-
-        if (m_stationData.details != null)
-        {
-            m_dataAsString += "\n\nName: " + m_stationData.details.name;
-            m_dataAsString += "\nLocation: " + m_stationData.details.location;
-            m_dataAsString += "\nNote: " + m_stationData.details.note;
-            m_dataAsString += "\nPayload: " + m_stationData.details.payload;
-
-        }
-
-        m_hasData = true;
-
-    }
 }

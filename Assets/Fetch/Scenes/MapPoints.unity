@@ -715,7 +715,7 @@ MonoBehaviour:
   m_map: {fileID: 38846078}
   m_point: {fileID: 460419885378378751, guid: d33dfdc9248d5418295019ef60c309b9, type: 3}
   m_trimZeroHeightWave: 0
-  m_sphericalMapping: 0
+  m_sphericalMapping: 1
   m_sphereRadius: 5
   m_hasGotData: 0
 --- !u!4 &1781986205
