@@ -11,11 +11,16 @@ public class Station : MonoBehaviour
     public Color m_overColor = Color.red;
     public Color m_clickedColor = Color.blue;
 
-    Renderer rend;
-    CameraMovement m_cameraMoveScript;
-    StationLabelUI m_ui;
-    string m_dataAsString;
-    bool m_hasData = false;
+    [HideInInspector]
+    public Renderer rend;
+    [HideInInspector]
+    public CameraMovement m_cameraMoveScript;
+    [HideInInspector]
+    public StationLabelUI m_ui;
+    [HideInInspector]
+    public string m_dataAsString;
+    [HideInInspector]
+    public bool m_hasData = false;
     bool m_hasBeenClicked = false;
     Vector3 m_startPosition;
     DateTime m_date;
